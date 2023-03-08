@@ -1,10 +1,13 @@
-import { useState, useEffect } from 'react';
+import { is } from '@babel/types';
+import { useState, useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 
 function MyForm() {
   
+  // {} = json object
   const [inputs, setInputs] = useState({});
+  const [password, setPassword] = useState("");
   // add a counter to monitor how many attempts
   // const [count, setCount] = useState(0);
   // const [calculation, setCalculation] = useState(0);
@@ -16,10 +19,38 @@ function MyForm() {
   }
 
   const handleSubmit = (event) => {
+    var isValid = true;
+    var format = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
     event.preventDefault();
-    alert(inputs);
     console.log("-- submit button clicked --");
-    console.log();
+    // minimum 8 characters
+    if (inputs.password.length < 8) {
+      isValid = false;
+      alert("Password must be more than 8 characters");
+    }
+    // must contain at least 1 number
+    if (!/\d/.test(inputs.password)) {
+      isValid = false;
+      alert("Password must contain at least 1 number");
+    }
+    // must contain at least 1 special character
+    if (!format.test(inputs.password)) {
+      isValid = false;
+      alert("Password must contain at least 1 special character")
+    }
+    // password contains an emoji
+    if (!/\p{Emoji}/u.test(inputs.password)) {
+      isValid = false;
+      alert("Password must contain at least 1 emoji")
+    }
+    // passwords match
+    if (inputs.password===inputs.confirmPassword) {
+      // take to testing page
+      setPassword(inputs.password);
+      console.log("-- " + password);
+    }
+    else {
+    }
   }
 
   // set the calculation to use the counter
@@ -40,14 +71,14 @@ function MyForm() {
       <label>Enter your password:
       <input 
         type="password" 
-        name="1stPwd" 
+        name="password" 
         value={inputs.password || ""} 
         onChange={handleChange}/>
       </label>
       <label>Confirm password:
         <input 
           type="password" 
-          name="2ndPwd" 
+          name="confirmPassword" 
           value={inputs.confirmPassword || ""} 
           onChange={handleChange}/>
         </label>

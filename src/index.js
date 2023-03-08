@@ -3,9 +3,11 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 
 function MyForm() {
+  
   const [inputs, setInputs] = useState({});
-  const [count, setCount] = useState(0);
-  const [calculation, setCalculation] = useState(0);
+  // add a counter to monitor how many attempts
+  // const [count, setCount] = useState(0);
+  // const [calculation, setCalculation] = useState(0);
 
   const handleChange = (event) => {
     const name = event.target.name;
@@ -16,11 +18,14 @@ function MyForm() {
   const handleSubmit = (event) => {
     event.preventDefault();
     alert(inputs);
+    console.log("-- submit button clicked --");
+    console.log();
   }
 
-  useEffect(() => {
-    setCalculation(() => count);
-  }, [count]);
+  // set the calculation to use the counter
+  // useEffect(() => {
+  //   setCalculation(() => count);
+  // }, [count]);
 
   return (
     <>
@@ -47,8 +52,9 @@ function MyForm() {
           onChange={handleChange}/>
         </label>
         <input type="submit" />
-        <button onClick={() => setCount((c) => c + 1)}>Enter</button>
-        <p>Attempts: {calculation}</p>
+        {/* // when the button is clicked, increment the counter by 1
+          <button onClick={() => setCount((c) => c + 1)}>Enter</button>
+        <p>Attempts: {calculation}</p> */}
     </form>
     </>
   )

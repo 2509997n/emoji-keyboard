@@ -39,15 +39,15 @@ function MyForm() {
     <form className="App" onSubmit={handleSubmit}>
       <label>Enter your password:
       <input 
-        type="text" 
-        name="password" 
+        type="password" 
+        name="1stPwd" 
         value={inputs.password || ""} 
         onChange={handleChange}/>
       </label>
       <label>Confirm password:
         <input 
-          type="text" 
-          name="confirmPassword" 
+          type="password" 
+          name="2ndPwd" 
           value={inputs.confirmPassword || ""} 
           onChange={handleChange}/>
         </label>

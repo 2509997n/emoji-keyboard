@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import ReactDOM from 'react-dom/client';
+import './index.css';
 
 function MyForm() {
   const [inputs, setInputs] = useState({});

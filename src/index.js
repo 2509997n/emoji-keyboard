@@ -17,7 +17,7 @@ function MyForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="App" onSubmit={handleSubmit}>
       <label>Enter your password:
       <input 
         type="text" 

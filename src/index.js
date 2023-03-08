@@ -30,6 +30,7 @@ function MyForm() {
     <li>At least 1 number</li>
     <li>At least 1 special character</li>
     <li>At least 1 emoji</li>
+    <p></p>
     <form className="App" onSubmit={handleSubmit}>
       <label>Enter your password:
       <input 

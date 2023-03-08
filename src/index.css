@@ -4,6 +4,7 @@ body {
   justify-content: center;
   align-items: center;
 }
+
 .title {
   text-align: center;
   width: 30vw;
@@ -21,7 +22,7 @@ body {
   margin: auto;
   width: 30vw;
   padding: 2vw 1vw;
-  background-color: rgb(250, 194, 194);
+  background-color: rgb(212, 223, 241);
   border-radius: 0 0 10px 10px;
 }
 

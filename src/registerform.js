@@ -39,29 +39,43 @@ const RegisterForm = (props) => {
         var isValid = true;
 
         event.preventDefault();
-        var errorMsg = "Your password does not meet the criteria above. Please try again to proceed.";
+        var errorMsg = "Your password does not meet the criteria above. Please try again to proceed.\n";
+        // const splitText = () =>
+        //     errorMsg.split("\n").map((value, index) => {
+        //         return (
+        //             <span key={index}>
+        //                 {value}
+        //                 <br />
+        //             </span>
+        //         );
+        //     });
 
         // minimum 8 characters
         if (!validateLength(inputs.password)) {
             isValid = false;
+            // errorMsg += "Must contain more than 8 characters\n";
         }
         // must contain at least 1 number
         if (!validateNumber(inputs.password)) {
             isValid = false;
+            // errorMsg += "Must contain at least 1 number\n";
         }
         // must contain at least 1 special character
         if (!validateChar(inputs.password)) {
             isValid = false;
+            // errorMsg += "Must contain at least 1 special character\n"
         }
         // Emoji regex validation
         // password contains an emoji
         if (!validateEmoji(inputs.password)) {
             isValid = false;
+            // errorMsg += "Must contain at least 1 emoji\n";
         }
         // passwords match
         if (!(inputs.password===inputs.confirmPassword)) {
             // take to testing page
             isValid=false
+            errorMsg = "* Cannot proceed - passwords must match. Please re-enter *";
         }
 
         if(isValid){
@@ -70,6 +84,7 @@ const RegisterForm = (props) => {
             props.nextStage();
 
         }else{
+            // splitText(errorMsg);
             setValidation(errorMsg);
         }
     }

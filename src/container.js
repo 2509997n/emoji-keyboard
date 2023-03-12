@@ -37,7 +37,7 @@ const Container = (props)=> {
     return(
         <>
             {stage===0? <RegisterForm nextStage={nextStage} setPassword={setPassword}/> : null}
-            {stage===1? <Lockscreen password={password} iAttempt={incrementAttempt}/>:null}
+            {stage===1? <Lockscreen attempt={attempt} password={password} iAttempt={incrementAttempt}/>:null}
             {stage===2? <Summary attempts={attempt} successes={successes} failures={failures} resetAll={resetAll}/>:null}
         </>
     )

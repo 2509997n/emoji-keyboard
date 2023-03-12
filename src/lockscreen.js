@@ -21,7 +21,7 @@ const Lockscreen = (props)=>{
     }
     return(
         <>
-        <p>Unlock Attempt</p>
+        <p>Unlock Attempt #{props.attempt+1}</p>
             <form onSubmit={handleSubmit}>
                 <input type={"password"} name="passwordAttempt" value={passwordAttempt} onChange={handleChange}/>
                 <input type="submit" value="Unlock" onSubmit={handleSubmit}/>

@@ -1,56 +1,81 @@
 import { is } from '@babel/types';
-import { useState, useEffect, useRef } from 'react';
+import { useState, Fragment, useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 
-const RegisterForm = (props) =>{
+const RegisterForm = (props) => {
 
     // {} = json object
     const [inputs, setInputs] = useState({});
-    const [password, setPassword] = useState("");
     const [validation, setValidation] = useState("");
-    // add a counter to monitor how many attempts
-    // const [count, setCount] = useState(0);
-    // const [calculation, setCalculation] = useState(0);
+    const [validationJson, setValidationJson] = useState({})
 
     const handleChange = (event) => {
         const name = event.target.name;
         const value = event.target.value;
+        setValidationJson(values => ({...values, length: validateLength(value)}))
+        setValidationJson(values=>({...values, number: validateNumber(value)}))
+        setValidationJson(values=>({...values, special: validateChar(value)}))
+        setValidationJson(values=>({...values, emoji: validateEmoji(value)}))
         setInputs(values => ({...values, [name]: value}))
     }
 
+    const validateLength = (text) => {
+        return text.length >= 8
+    }
+
+    const validateNumber = (text) => {
+        return (/\d/.test(text))
+    }
+    const validateChar = (text) => {
+        var specialRegex = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+        return specialRegex.test(text);
+    }
+    const validateEmoji = (text) => {
+        var emojiValidationRegex = /\p{Extended_Pictographic}/u;
+        return emojiValidationRegex.test(text)
+    }
     const handleSubmit = (event) => {
         var isValid = true;
-        var format = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+
         event.preventDefault();
-        var errorMsg = "";
+        var errorMsg = "Your password does not meet the criteria above. Please try again to proceed.\n";
+        // const splitText = () =>
+        //     errorMsg.split("\n").map((value, index) => {
+        //         return (
+        //             <span key={index}>
+        //                 {value}
+        //                 <br />
+        //             </span>
+        //         );
+        //     });
+
         // minimum 8 characters
-        if (inputs.password.length < 8) {
+        if (!validateLength(inputs.password)) {
             isValid = false;
-            errorMsg += "Password must be more than 8 characters \n";
+            // errorMsg += "Must contain more than 8 characters\n";
         }
         // must contain at least 1 number
-        if (!/\d/.test(inputs.password)) {
+        if (!validateNumber(inputs.password)) {
             isValid = false;
-            errorMsg += "Password must contain at least 1 number";
+            // errorMsg += "Must contain at least 1 number\n";
         }
         // must contain at least 1 special character
-        if (!format.test(inputs.password)) {
+        if (!validateChar(inputs.password)) {
             isValid = false;
-            errorMsg += "Password must contain at least 1 special character"
+            // errorMsg += "Must contain at least 1 special character\n"
         }
         // Emoji regex validation
-        var emojiValidationRegex = /\p{Extended_Pictographic}/u;
         // password contains an emoji
-        if (!emojiValidationRegex.test(inputs.password)) {
+        if (!validateEmoji(inputs.password)) {
             isValid = false;
-            errorMsg += "Password must contain at least 1 emoji";
+            // errorMsg += "Must contain at least 1 emoji\n";
         }
         // passwords match
         if (!(inputs.password===inputs.confirmPassword)) {
             // take to testing page
             isValid=false
-            errorMsg += "Password fields must match!"
+            errorMsg = "* Cannot proceed - passwords must match. Please re-enter *";
         }
 
         if(isValid){
@@ -59,23 +84,25 @@ const RegisterForm = (props) =>{
             props.nextStage();
 
         }else{
+            // splitText(errorMsg);
             setValidation(errorMsg);
         }
     }
-
-    // set the calculation to use the counter
-    // useEffect(() => {
-    //   setCalculation(() => count);
-    // }, [count]);
 
     return (
         <>
             <h1>Set up your password</h1>
             <p>You must include:</p>
-            <li>Minimum of 8 characters</li>
-            <li>At least 1 number</li>
-            <li>At least 1 special character</li>
-            <li>At least 1 emoji</li>
+
+            {validationJson.length?
+                <li style={{color: "green"}}>✓ Minimum of 8 characters</li> : <li style={{color: "red"}}>Minimum of 8 characters</li>}
+            {validationJson.number?
+                <li style={{color: "green"}}>✓ At least 1 number</li> : <li style={{color: "red"}}>At least 1 number</li>}
+            {validationJson.special?
+                <li style={{color: "green"}}>✓ At least 1 special character</li> : <li style={{color: "red"}}>At least 1 special character</li>}
+            {validationJson.emoji?
+                <li style={{color: "green"}}>✓ At least 1 emoji</li> : <li style={{color: "red"}}>At least 1 emoji</li>}
+
             <p></p>
             {validation.length>1? <p>{validation}</p> : null}
             <form className="App" onSubmit={handleSubmit}>

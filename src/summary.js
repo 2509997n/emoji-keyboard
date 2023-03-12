@@ -4,7 +4,7 @@ const Summary = (props)=>{
     return(
         <>
             <h2>Thanks for completing our prototype!</h2>
-            <p>Heres your stats, please screenshot and send this page over.</p>
+            <p>Here's your stats, please screenshot and send this page over.</p>
             <table>
                 <tr>
                     <th>Attempts</th>

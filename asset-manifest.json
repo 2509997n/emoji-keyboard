@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/emoji-keyboard/static/css/main.a123e3f0.css",
+    "main.js": "/emoji-keyboard/static/js/main.141c0e9b.js",
+    "index.html": "/emoji-keyboard/index.html",
+    "main.a123e3f0.css.map": "/emoji-keyboard/static/css/main.a123e3f0.css.map",
+    "main.141c0e9b.js.map": "/emoji-keyboard/static/js/main.141c0e9b.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a123e3f0.css",
+    "static/js/main.141c0e9b.js"
+  ]
+}

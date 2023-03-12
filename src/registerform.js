@@ -1,5 +1,5 @@
 import { is } from '@babel/types';
-import { useState, useEffect, useRef } from 'react';
+import { useState, Fragment, useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 
@@ -39,7 +39,8 @@ const RegisterForm = (props) => {
         var isValid = true;
 
         event.preventDefault();
-        var errorMsg = "";
+        var errorMsg = "Your password does not meet the criteria above. Please try again to proceed.";
+
         // minimum 8 characters
         if (!validateLength(inputs.password)) {
             isValid = false;
@@ -47,24 +48,20 @@ const RegisterForm = (props) => {
         // must contain at least 1 number
         if (!validateNumber(inputs.password)) {
             isValid = false;
-            errorMsg += "Password must contain at least 1 number";
         }
         // must contain at least 1 special character
         if (!validateChar(inputs.password)) {
             isValid = false;
-            errorMsg += "Password must contain at least 1 special character"
         }
         // Emoji regex validation
         // password contains an emoji
         if (!validateEmoji(inputs.password)) {
             isValid = false;
-            errorMsg += "Password must contain at least 1 emoji";
         }
         // passwords match
         if (!(inputs.password===inputs.confirmPassword)) {
             // take to testing page
             isValid=false
-            errorMsg += "Password fields must match!"
         }
 
         if(isValid){
@@ -76,11 +73,6 @@ const RegisterForm = (props) => {
             setValidation(errorMsg);
         }
     }
-
-    // set the calculation to use the counter
-    // useEffect(() => {
-    //   setCalculation(() => count);
-    // }, [count]);
 
     return (
         <>

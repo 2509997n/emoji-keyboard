@@ -13,7 +13,7 @@ const Summary = (props)=>{
             <table>
                 <tr>
                     <th>Attempts</th>
-                    <td>{props.attempts}</td>
+                    <td>{props.attempts+1}</td>
                 </tr>
                 <tr>
                     <th>Successful Logins</th>

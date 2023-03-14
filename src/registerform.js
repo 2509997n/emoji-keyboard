@@ -37,7 +37,9 @@ const RegisterForm = (props) => {
         if(inputs[selected] !== undefined){
             value=inputs[selected]
         }
-        setInputs(values => ({...values, [selected]: value + (event.emoji)}))
+        var totalVal = value + event.emoji;
+        setValidationJson(values=>({...values, emoji: validateEmoji(totalVal)}))
+        setInputs(values => ({...values, [selected]: totalVal}))
       };
 
     const handleSubmit = (event) => {

@@ -119,7 +119,6 @@ const RegisterForm = (props) => {
                 <EmojiPicker
                     onEmojiClick={onEmojiClick}/>
                 <input type="submit" value="Set Password"/>
-                <p>{inputs.password}</p>
             </form>
         </>
     )

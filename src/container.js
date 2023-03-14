@@ -49,7 +49,7 @@ const Container = (props)=> {
         <>
             {stage===0? <RegisterForm nextStage={nextStage} setMode={setMode} setPassword={setPassword}/> : null}
             {stage===1? <Lockscreen attempt={attempt} password={password} numbersOnly={numbersOnly} iAttempt={incrementAttempt}/>:null}
-            {stage===2? <Summary attempts={attempt} successes={successes} failures={failures} resetAll={resetAll} attemptTime={attemptTime}/>:null}
+            {stage===2? <Summary attempts={attempt} successes={successes} numbersOnly={numbersOnly}failures={failures} resetAll={resetAll} attemptTime={attemptTime}/>:null}
         </>
     )
 }

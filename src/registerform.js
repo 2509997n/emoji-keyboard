@@ -1,6 +1,7 @@
 import { is } from '@babel/types';
 import { useState, Fragment, useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom/client';
+import EmojiPicker from 'emoji-picker-react';
 import './index.css';
 
 const RegisterForm = (props) => {
@@ -8,7 +9,8 @@ const RegisterForm = (props) => {
     // {} = json object
     const [inputs, setInputs] = useState({});
     const [validation, setValidation] = useState("");
-    const [validationJson, setValidationJson] = useState({})
+    const [validationJson, setValidationJson] = useState({});
+    const [selected, setSelected] = useState("");
 
     const handleChange = (event) => {
         const name = event.target.name;
@@ -18,6 +20,10 @@ const RegisterForm = (props) => {
         setInputs(values => ({...values, [name]: value}))
     }
 
+    const selectBox = (name) => {
+        setSelected(name)
+    }
+
     const validateLength = (text) => {
         return text.length >= 6
     }
@@ -25,6 +31,15 @@ const RegisterForm = (props) => {
         var emojiValidationRegex = /\p{Extended_Pictographic}/u;
         return emojiValidationRegex.test(text)
     }
+
+    const onEmojiClick = (event, emojiObject) => {
+        var value=''
+        if(inputs[selected] !== undefined){
+            value=inputs[selected]
+        }
+        setInputs(values => ({...values, [selected]: value + (event.emoji)}))
+      };
+
     const handleSubmit = (event) => {
         var isValid = true;
 
@@ -89,7 +104,8 @@ const RegisterForm = (props) => {
                         type="password"
                         name="password"
                         value={inputs.password || ""}
-                        onChange={handleChange}/>
+                        onChange={handleChange}
+                        onClick={()=>selectBox("password")}/>
                 </label>
                 <label>Confirm password:
                     <input
@@ -97,9 +113,13 @@ const RegisterForm = (props) => {
                         name="confirmPassword"
                         value={inputs.confirmPassword || ""}
                         onChange={handleChange}
+                        onClick={()=>selectBox("confirmPassword")}
                     />
                 </label>
+                <EmojiPicker
+                    onEmojiClick={onEmojiClick}/>
                 <input type="submit" value="Set Password"/>
+                <p>{inputs.password}</p>
             </form>
         </>
     )

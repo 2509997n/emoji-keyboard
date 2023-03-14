@@ -19,6 +19,10 @@ const Summary = (props)=>{
                     <th>Failed Logins</th>
                     <td>{props.failures}</td>
                 </tr>
+                <tr>
+                    <th>Attempt Timings</th>
+                    <td>{props.attemptTime}</td>
+                </tr>
             </table>
             <p>If you want to reset, please click this button.</p>
             <button onClick={props.resetAll}>Reset</button>

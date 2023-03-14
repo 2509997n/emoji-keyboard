@@ -11,11 +11,15 @@ const Container = (props)=> {
     const [successes, setSuccesses] = useState(0);
     const [failures, setFailures] = useState(0);
     const [numAttempts, setNumAttempt] = useState(9);
+    const [numbersOnly, setNumbersOnly]=useState(false)
 
     let now = Date.now();
 
     function nextStage(){
         setStage(stage+1);
+    }
+    function setMode(mode){
+        setNumbersOnly(mode);
     }
     function resetAll(){
         setPassword("");
@@ -43,8 +47,8 @@ const Container = (props)=> {
 
     return(
         <>
-            {stage===0? <RegisterForm nextStage={nextStage} setPassword={setPassword}/> : null}
-            {stage===1? <Lockscreen attempt={attempt} password={password} iAttempt={incrementAttempt}/>:null}
+            {stage===0? <RegisterForm nextStage={nextStage} setMode={setMode} setPassword={setPassword}/> : null}
+            {stage===1? <Lockscreen attempt={attempt} password={password} numbersOnly={numbersOnly} iAttempt={incrementAttempt}/>:null}
             {stage===2? <Summary attempts={attempt} successes={successes} failures={failures} resetAll={resetAll} attemptTime={attemptTime}/>:null}
         </>
     )

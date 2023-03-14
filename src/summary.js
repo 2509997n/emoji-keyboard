@@ -5,6 +5,11 @@ const Summary = (props)=>{
         <>
             <h2>Thanks for completing our prototype!</h2>
             <p>Here's your stats, please screenshot and send this page over.</p>
+            {props.numbersOnly? <>
+                <p>Mode - PIN</p>
+            </>:<>
+                <p>Mode - Emoji</p>
+            </>}
             <table>
                 <tr>
                     <th>Attempts</th>

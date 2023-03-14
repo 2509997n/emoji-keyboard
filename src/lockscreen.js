@@ -1,4 +1,5 @@
 import {useState} from 'react'
+import EmojiPicker from "emoji-picker-react";
 
 const Lockscreen = (props)=>{
     const [passwordAttempt, setPasswordAttempt]=useState("")
@@ -8,13 +9,16 @@ const Lockscreen = (props)=>{
         const value = event.target.value;
         setPasswordAttempt(value);
     }
+    const onEmojiClick = (event, emojiObject) => {
+        var totalVal = passwordAttempt + event.emoji;
+        setPasswordAttempt( totalVal);
+    };
+
     function handleSubmit(e){
         e.preventDefault();
         if(passwordAttempt===props.password){
-            alert("Unlocked!")
             props.iAttempt(true);
         }else{
-            alert("Incorrect password")
             props.iAttempt(false);
         }
         setPasswordAttempt("")
@@ -23,7 +27,16 @@ const Lockscreen = (props)=>{
         <>
         <p>Unlock Attempt #{props.attempt+1}</p>
             <form onSubmit={handleSubmit}>
-                <input type={"password"} name="passwordAttempt" value={passwordAttempt} onChange={handleChange}/>
+                {props.numbersOnly? <>
+                        <input type={"password"} name="passwordAttempt" pattern="[0-9]*" value={passwordAttempt} onChange={handleChange}/>
+                    </>:
+                    <>
+                        <input type={"password"} name="passwordAttempt" value={passwordAttempt} onChange={handleChange}/>
+                        <EmojiPicker
+                            onEmojiClick={onEmojiClick} suggestedEmojisMode="recent"/>
+
+                    </>}
+
                 <input type="submit" value="Unlock" onSubmit={handleSubmit}/>
             </form>
         </>

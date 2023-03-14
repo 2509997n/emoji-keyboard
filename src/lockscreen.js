@@ -25,12 +25,14 @@ const Lockscreen = (props)=>{
     }
     return(
         <>
+            <p>{props.numbersOnly}</p>
         <p>Unlock Attempt #{props.attempt+1}</p>
             <form onSubmit={handleSubmit}>
                 {props.numbersOnly? <>
                         <input type={"password"} name="passwordAttempt" pattern="[0-9]*" value={passwordAttempt} onChange={handleChange}/>
                     </>:
                     <>
+                        <p>PASSWORD</p>
                         <input type={"password"} name="passwordAttempt" value={passwordAttempt} onChange={handleChange}/>
                         <EmojiPicker
                             onEmojiClick={onEmojiClick} suggestedEmojisMode="recent"/>

@@ -19,7 +19,11 @@ const Container = (props)=> {
         setStage(stage+1);
     }
     function setMode(mode){
-        setNumbersOnly(mode);
+        if(mode==="emoji"){
+            setNumbersOnly(false)
+        }else{
+            setNumbersOnly(true)
+        }
     }
     function resetAll(){
         setPassword("");
@@ -36,6 +40,9 @@ const Container = (props)=> {
             setSuccesses(successes+1)
             setTime(attemptTime + ("Attempt "+(attempt+1)+": "+s+"s "))
         }else{
+            let t = Math.abs(Date.now() - now) / 1000
+            let s = t % 60
+            setTime(attemptTime + ("Failed Attempt "+(attempt+1)+": "+s+"s "))
             setFailures(failures+1)
         }
         if(attempt >= numAttempts){
